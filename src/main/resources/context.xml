@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+    <context:annotation-config/>
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="org.mariadb.jdbc.Driver" />
+		<property name="url" value="jdbc:mariadb://localhost:3306/app" />
+		<property name="username" value="app" />
+		<property name="password" value="app" />
+	</bean>
+	
+	<bean id="xmlBean" class="com.example.XmlBean">
+		<property name="p1" value="3" />
+		<property name="p2" value="Some value" />
+		<!-- <property name="dataSource" ref="dataSource" /> -->
+	</bean>
+
+	<bean id="xmlBean2" class="com.example.XmlBean2">
+		<constructor-arg>
+			<value>Second Bean</value>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="animal" class="com.taiji.animal">
+	    <property name="name" value="提伯斯"></property>
+	    <property name="color" value="棕色"></property>
+	    <property name="person">
+	      <list>
+	       <value> 我是一只小小鸟</value>
+	       <value> 老是飞不高</value>
+	      </list>
+	    
+	    </property>
+	    <property name="cool" >
+	      <map>
+	        <entry key="66" value="fighting"/>
+	        <entry key="88" value="nice"/>
+	      </map>
+	    </property>
+	    <property name="iphone">
+	       <set>
+	         <value>hello world</value>
+	       <ref bean="dataSource"/>
+	       </set>
+	    </property>
+	    
+	
+	
+	</bean>
+	
+	<bean id="locale" class="java.util.Locale" factory-method="getDefault" />
+</beans>
